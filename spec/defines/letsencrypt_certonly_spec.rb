@@ -163,6 +163,7 @@ describe 'letsencrypt::certonly' do
       context 'with custom config_dir' do
         let(:title) { 'foo.example.com' }
         let(:pre_condition) { "class { letsencrypt: email => 'foo@example.com', config_dir => '/foo/bar/baz'}" }
+
         it { is_expected.to contain_exec('letsencrypt certonly foo.example.com').with(creates: '/foo/bar/baz/live/foo.example.com/cert.pem') }
       end
     end
@@ -172,6 +173,7 @@ describe 'letsencrypt::certonly' do
     let(:title) { 'foo.example.com' }
     let(:facts) { { osfamily: 'FreeBSD', operatingsystem: 'FreeBSD', operatingsystemrelease: '10.3-RELEASE-p7', operatingsystemmajrelease: '10', path: '/usr/bin' } }
     let(:pre_condition) { "class { letsencrypt: email => 'foo@example.com'}" }
+
     it { is_expected.to contain_exec('letsencrypt certonly foo.example.com').with(creates: '/usr/local/etc/letsencrypt/live/foo.example.com/cert.pem', command: %r{^certbot}) }
   end
 end

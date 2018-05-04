@@ -104,6 +104,7 @@ describe 'letsencrypt' do
 
         describe 'with custom config directory' do
           let(:additional_params) { { config_dir: '/foo/bar/baz' } }
+
           it { is_expected.to contain_file('/foo/bar/baz').with(ensure: 'directory') }
         end
 
@@ -145,6 +146,7 @@ describe 'letsencrypt' do
 
       it 'contains the correct resources' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'vcs')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -161,6 +163,7 @@ describe 'letsencrypt' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'package')
         is_expected.to contain_class('letsencrypt').with(package_command: 'certbot')
         is_expected.to contain_package('letsencrypt').with(name: 'certbot')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -176,6 +179,7 @@ describe 'letsencrypt' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'vcs')
         is_expected.not_to contain_class('epel').that_comes_before('Package[letsencrypt]')
         is_expected.not_to contain_class('letsencrypt::install').with(install_method: 'package')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -189,6 +193,7 @@ describe 'letsencrypt' do
 
       it 'contains the correct resources' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'package')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -202,6 +207,7 @@ describe 'letsencrypt' do
 
       it 'contains the correct resources' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'package')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -215,6 +221,7 @@ describe 'letsencrypt' do
 
       it 'contains the correct resources' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'vcs')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -228,6 +235,7 @@ describe 'letsencrypt' do
 
       it 'contains the correct resources' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'package')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -243,6 +251,7 @@ describe 'letsencrypt' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'package').with(package_name: 'app-crypt/certbot')
         is_expected.to contain_class('letsencrypt').with(package_command: 'certbot')
         is_expected.to contain_package('letsencrypt').with(name: 'app-crypt/certbot')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
@@ -257,6 +266,7 @@ describe 'letsencrypt' do
         is_expected.to contain_class('letsencrypt::install').with(install_method: 'package').with(package_name: 'certbot')
         is_expected.to contain_class('letsencrypt').with(package_command: 'certbot')
         is_expected.to contain_package('letsencrypt').with(name: 'certbot')
+        is_expected.to contain_file('/etc/letsencrypt').with(ensure: 'directory')
       end
     end
   end
